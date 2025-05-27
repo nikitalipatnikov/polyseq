@@ -2,7 +2,7 @@ import math
 
 def _sides(poly):
     """Возвращает длины рёбер многоугольника в виде кортежа."""
-    n = len(polygon)
+    n = len(poly)
     return tuple(
         math.dist(poly[i], poly[(i + 1) % n])
         for i in range(n)
