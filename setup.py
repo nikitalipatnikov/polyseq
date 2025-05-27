@@ -9,6 +9,7 @@ setup(
     #long_description=open('').read(),
     #long_description_content_type=
     author='Липатников Никита',
+    email='lipatnikov.contact@gmail.com',
     packages=find_packages(),
     install_requires=['matplotlib'],
 )
