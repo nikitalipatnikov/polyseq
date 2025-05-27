@@ -1,0 +1,9 @@
+Metadata-Version: 2.4
+Name: polyseq
+Version: 1.0
+Summary: A package for working with polygons that provides tools for generating, transforming, filtering, visualizing and aggregating both finite and infinite sequences of polygons
+Author: Липатников Никита
+Requires-Dist: matplotlib
+Dynamic: author
+Dynamic: requires-dist
+Dynamic: summary

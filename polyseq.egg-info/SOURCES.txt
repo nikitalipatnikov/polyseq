@@ -1,0 +1,14 @@
+setup.py
+polyseq/__init__.py
+polyseq/aggregates.py
+polyseq/filters.py
+polyseq/generators.py
+polyseq/transformers.py
+polyseq/utils.py
+polyseq/visualization.py
+polyseq.egg-info/PKG-INFO
+polyseq.egg-info/SOURCES.txt
+polyseq.egg-info/dependency_links.txt
+polyseq.egg-info/requires.txt
+polyseq.egg-info/top_level.txt
+tests/test.py
