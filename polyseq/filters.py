@@ -1,6 +1,6 @@
 import itertools
 import functools
-
+import math
 
 def _pseudo_scalar_prod(vec1, vec2) -> float:
     """Псевдоскалярное произведение двух векторов в ортонормированном базисе (2-d dot product)."""
@@ -50,7 +50,7 @@ def flt_area_lt(poly: tuple[tuple[float, float], ...],
 def flt_shortest_side_lt(poly: tuple[tuple[float, float], ...],
                          shortest_side: int | float) -> bool:
     """Проверяет, является ли кратчайшая сторона многоугольника меньше заданного значения."""
-    return min(map(lambda i: math.dist(poly[i], poly[i+1]), range(len(poly)))) < shortest_side
+    return min(map(lambda i: math.dist(poly[i], poly[(i+1) % len(poly)]), range(len(poly)))) < shortest_side
 
 def flt_point_inside(poly: tuple[tuple[float, float], ...],
                      point: tuple[float, float]) -> bool:

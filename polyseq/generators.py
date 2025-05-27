@@ -1,9 +1,9 @@
 import itertools
 import math
 from typing import Iterator
-from .transformers import tr_translate, tr_rotate, tr_homothety
+from polyseq.transformers import tr_translate, tr_rotate
 import random
-from .visualization import visualize
+from polyseq.visualization import visualize
 import matplotlib.pyplot as plt
 
 def _regular_polygon(n_sides, l: int = 1) -> tuple[tuple[float, float], ...]:
@@ -19,7 +19,7 @@ def _regular_polygon(n_sides, l: int = 1) -> tuple[tuple[float, float], ...]:
     Возвращает:
         Кортеж из вершин размера (n_sides, 2); каждая вершина – кортеж (float, float).
     """
-    radius = l / 2*math.sin(math.pi/n_sides)
+    radius = l / (2*math.sin(math.pi/n_sides))
     vertices = (
         (radius * math.cos(2*math.pi*k/n_sides),
         radius * math.sin(2*math.pi*k/n_sides))
@@ -49,7 +49,7 @@ def _random_polygon(n_sides: int | float | None = None) -> tuple[tuple[float, fl
     return tuple(vertices)
 
 
-def gen_reg_polygon_seq(n_sides: int, step = 1, n_figs: int | float = math.inf,
+def gen_reg_polygon_seq(n_sides: int, step: int | float = 1, n_figs: int | float = math.inf,
                  l: int | float = 1) -> Iterator[tuple[tuple[float, float], ...]]:
     """
     Генерирует конечную или бесконечную последовательность правильных
@@ -121,7 +121,7 @@ def gen_random_polygon_seq(n_figs: int | float,
     if not isinstance(n_figs, (int, float)):
         raise TypeError
 
-    if not isinstance(n_sides, int) or n_sides is not None:
+    if not n_sides is not None and not isinstance(n_sides, int):
         raise TypeError
 
     if n_sides is not None and n_sides < 3:
@@ -129,4 +129,6 @@ def gen_random_polygon_seq(n_figs: int | float,
 
     yield from (_random_polygon(n_sides) for _ in range(n_figs))
 
+if __name__ == '__main__':
+    pass
 

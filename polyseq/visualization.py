@@ -1,4 +1,5 @@
 import itertools
+from typing import Iterator
 
 import matplotlib.pyplot as plt
 import matplotlib.cm as cm
@@ -55,7 +56,7 @@ def visualize(polygon_seq: Iterator[tuple[tuple[float], float, ...]],
     x,y = zip(*itertools.chain.from_iterable(polygons))
     ax.set_xlim(min(x) - 1, max(x) + 1)
     ax.set_ylim(min(y) - 1, max(y) + 1)
-    ax.grid(visible=kwargs.get('grid', False), alpha=0.5)
+    ax.grid(kwargs.get('grid', None))
     ax.set_aspect('equal')
 
     return ax
