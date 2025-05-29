@@ -14,13 +14,56 @@
 ## Установка 
 Установка из источника:
 ```bash
-git clone https://github.com/your-username/polyseq.git
+git clone https://github.com/nikitalipatnikov/polyseq.git
 cd polyseq
 pip install -e .
 ```
 
-## Использование 
----примеры---
+## Примеры использования 
+
+### Генерация 
+```python
+# горизонтальная "лента" – бесконечный генератор правильных семиугольников с шагом 2.7 по оси абсцисс; длина стороны – 5.8
+hepta_seq = gen_reg_polygon_seq(n_sides=7, n_figs=math.inf, step=2.7, l=5.8)
+
+# генератор из ста случайных многоугольников
+random_seq = gen_random_polygon_seq(n_figs=100)
+```
+### Преобразование
+```python
+# симметрия относительно оси абсцисс
+map(lambda p: tr_symmetry(p, axis='x'), seq)
+
+# параллелельный перенос по оси ординат и поворот на 60 градусов против часовой стрелки
+map(lambda p: tr_rotate(tr_translate(p, dy=3), 60), seq)
+```
+### Фильтрация
+```python
+# фильтрация многоугольников, которые не содержат заданную точку внутри
+filter(lambda p: flt_point_inside(p, (1,1)), seq)
+```
+### Агрегация
+```python
+# нахождение суммарного периметра всех многоугольников последовательности
+agr_per = agr_perimeter(seq)
+
+# нахождение минимального расстояния от начала координат до любой вершины всех многоугольников
+orig_nearest = agr_origin_nearest(seq)
+```
+### Визуализация
+```python
+seq1 = gen_reg_polygon_seq(n_sides=3)
+seq2 = gen_random_polygon_seq(n_figs=2)
+
+# не передаем ax – создаем новые объекты Figure и Axes
+ax = visualize(seq1, start=0, stop=11, cmap=viridis, alpha=0.35, grid=True)
+
+# добавляем новых артистов на созданные оси
+visualize(seq2, start=0, stop=None, ax=ax)
+
+# выводим стандартным для matplotlib способом
+plt.show()
+```
 
 ## Задания
 Задания (вместе с визуализацией результатов), которые необходимо было выполнить с использованием реализованного функционала: ---ссылка на директорию---
