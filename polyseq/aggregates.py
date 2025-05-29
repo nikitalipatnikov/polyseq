@@ -15,7 +15,7 @@ def _area(poly: tuple[tuple[float, float], ...]) -> float:
         for i in range(n)))
 
 def agr_origin_nearest(polygon_seq):
-    """Минимальное расстояние от начала координат до любой вершины всех полигонов."""
+    """Минимальное расстояние от начала координат до любой вершины всех многоугольников."""
     return min(min(math.dist(point, (0, 0)) for point in poly) for poly in polygon_seq)
 
 def agr_max_side(polygon_seq):

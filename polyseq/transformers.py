@@ -92,3 +92,8 @@ def tr_homothety(poly: tuple[tuple[float, float], ...],
 
     a, b = center
     return tuple(map(lambda v: (k*(v[0] - a) + a, k*(v[1] - b) + b), poly))
+
+def tr_stretch_plane(poly: tuple[tuple[float, float], ...],
+                     cx=1, cy=1):
+    """Расстягивает фигуру (плоскость) вдоль одной из осей."""
+    return tuple(map(lambda v: (cx * v[0], cy*v[1]), poly))

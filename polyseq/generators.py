@@ -91,7 +91,8 @@ def gen_reg_polygon_seq(n_sides: int, step: int | float = 1, n_figs: int | float
     if not n_figs.is_integer() and not math.isinf(n_figs):
         raise ValueError
 
-    base_poly = tr_rotate(_regular_polygon(n_sides, l=l), 90)
+    base_poly = tr_rotate(_regular_polygon(n_sides, l=l), 90) if n_sides != 4 \
+        else tr_rotate(_regular_polygon(n_sides, l=l), 45)
     x_cords = tuple(map(lambda p: p[0], base_poly))
     x_shift = max(x_cords) - min(x_cords) + step
     stream = map(lambda shift: tr_translate(base_poly, shift, 0), itertools.count(0, x_shift))
@@ -121,14 +122,11 @@ def gen_random_polygon_seq(n_figs: int | float,
     if not isinstance(n_figs, (int, float)):
         raise TypeError
 
-    if not n_sides is not None and not isinstance(n_sides, int):
+    if n_sides is not None and not isinstance(n_sides, int):
         raise TypeError
 
     if n_sides is not None and n_sides < 3:
         raise ValueError
 
     yield from (_random_polygon(n_sides) for _ in range(n_figs))
-
-if __name__ == '__main__':
-    pass
 

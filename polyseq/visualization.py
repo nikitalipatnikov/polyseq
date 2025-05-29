@@ -34,10 +34,17 @@ def visualize(polygon_seq: Iterator[tuple[tuple[float], float, ...]],
     """
     polygons = tuple(itertools.islice(polygon_seq, start, stop, step))
 
-    # цветовая функция; равномерно распределяют цвета заданной цветовой карты по количеству фигур в последовательности
-    def _get_color(idx: int) -> tuple[float, float, float, float]:
-        cmap = plt.get_cmap(kwargs.get('cmap', 'plasma'), len(polygons))
-        return cmap(idx/len(polygons)) # нормализация для равномерного распределения цветов
+
+    def _get_color(idx: int) -> tuple[float, float, float, float] | None:
+        """
+        Равномерно распределяет цвета заданной цветовой карты по количеству фигур в последовательности.
+        Если явно переданы edgecolor и facecolor – используем их, `_get_color()` возвращает None
+        """
+        if kwargs.get('edgecolor') is not None or kwargs.get('facecolor') is not None:
+            return None
+        else:
+            cmap = plt.get_cmap(kwargs.get('cmap', 'plasma'), len(polygons))
+            return cmap(idx / len(polygons))  # нормализация для равномерного распределения цветов
 
     # создаем новую ось, если не передана
     if ax is None:
@@ -52,11 +59,8 @@ def visualize(polygon_seq: Iterator[tuple[tuple[float], float, ...]],
                              edgecolor=kwargs.get('edgecolor'),
                              facecolor=kwargs.get('facecolor')))
 
-    # подгоняем пределы
-    x,y = zip(*itertools.chain.from_iterable(polygons))
-    ax.set_xlim(min(x) - 1, max(x) + 1)
-    ax.set_ylim(min(y) - 1, max(y) + 1)
-    ax.grid(kwargs.get('grid', None))
+    ax.autoscale()
+    ax.grid(visible=kwargs.get('grid', False))
     ax.set_aspect('equal')
 
     return ax
