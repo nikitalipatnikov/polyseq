@@ -74,22 +74,22 @@ def gen_reg_polygon_seq(n_sides: int, step: int | float = 1, n_figs: int | float
     """
 
     if not isinstance(n_sides, int):
-        raise TypeError
+        raise TypeError('step must be a whole numerical value (int or float)')
     
     if not isinstance(step, (int, float)):
-        raise TypeError
+        raise TypeError('step must be a numerical value (int or float)')
 
     if not isinstance(n_figs, (int, float)):
-        raise TypeError()
+        raise TypeError('n_figs must either be whole a numerical value (int or float) or math.inf')
 
     if not isinstance(l, (int, float)):
-        raise TypeError()
+        raise TypeError('l must be a numerical value (int or float)')
 
     if n_sides < 3:
-        raise ValueError
+        raise ValueError('n_sides must be greater or equal to 3')
 
     if not n_figs.is_integer() and not math.isinf(n_figs):
-        raise ValueError
+        raise ValueError('n_figs cannot be a fraction')
 
     base_poly = tr_rotate(_regular_polygon(n_sides, l=l), 90) if n_sides != 4 \
         else tr_rotate(_regular_polygon(n_sides, l=l), 45)
@@ -103,7 +103,7 @@ def gen_reg_polygon_seq(n_sides: int, step: int | float = 1, n_figs: int | float
 
 
 def gen_random_polygon_seq(n_figs: int | float,
-                           n_sides: int | None = None) -> Iterator[tuple[tuple[float], float, ...]]:
+                           n_sides: int | float | None = None) -> Iterator[tuple[tuple[float], float, ...]]:
     """
     Генерирует конечную последовательность случайных многоугольников.
 
@@ -120,13 +120,19 @@ def gen_random_polygon_seq(n_figs: int | float,
 
     """
     if not isinstance(n_figs, (int, float)):
-        raise TypeError
+        raise TypeError('n_figs must be a whole numerical value (int or float)')
 
-    if n_sides is not None and not isinstance(n_sides, int):
-        raise TypeError
+    if n_sides is not None and not isinstance(n_sides, (int, float)):
+        raise TypeError('n_sides must be a whole numerical value (int or float)')
 
     if n_sides is not None and n_sides < 3:
-        raise ValueError
+        raise ValueError('n_sides must be greater or equal to 3')
+
+    if n_figs is not None and not n_figs.is_integer():
+        raise ValueError('n_figs cannot be a fraction')
+
+    if n_sides is not None and not n_sides.is_integer():
+        raise ValueError('n_sides cannot be a fraction')
 
     yield from (_random_polygon(n_sides) for _ in range(n_figs))
 

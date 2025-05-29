@@ -36,7 +36,7 @@ def main():
 
     assert math.isclose(agr_per, 48)
 
-    #-----суммарная площадь-----
+    #-----суммарная площадь------
     seq5 = gen_reg_polygon_seq(n_sides=4, n_figs=3, l=1)
     agr_ar = agr_area(seq5)
 

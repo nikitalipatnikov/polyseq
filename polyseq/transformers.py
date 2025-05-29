@@ -95,5 +95,8 @@ def tr_homothety(poly: tuple[tuple[float, float], ...],
 
 def tr_stretch_plane(poly: tuple[tuple[float, float], ...],
                      cx=1, cy=1):
-    """Расстягивает фигуру (плоскость) вдоль одной из осей."""
+    """
+    Расстягивает фигуру (плоскость) вдоль одной из осей.
+    Предназначена прежде всего для получения прямоугольника из квадрата.
+    """
     return tuple(map(lambda v: (cx * v[0], cy*v[1]), poly))

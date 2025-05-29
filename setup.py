@@ -6,8 +6,6 @@ setup(
     description='A package for working with polygons that provides tools for '
                 'generating, transforming, filtering, visualizing and aggregating '
                 'both finite and infinite sequences of polygons',
-    #long_description=open('').read(),
-    #long_description_content_type=
     author='Липатников Никита',
     email='lipatnikov.contact@gmail.com',
     packages=find_packages(),
